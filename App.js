@@ -22,15 +22,14 @@ const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? Colors.darker : Colors.WebView,
     flex: 1,
   };
 
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      {/* TODO: 나중에 adoor 페이지로 라우팅 바꾸기 */}
-      <WebView source={{ uri: 'https://www.naver.com' }} />
+      <WebView source={{ uri: 'https://adoor.world' }} />
     </SafeAreaView>
   );
 };
