@@ -1,4 +1,4 @@
-package com.adoor;
+package com.adoorapp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
