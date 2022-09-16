@@ -9,6 +9,7 @@ adoor의 모바일 앱을 위한 react-native 프로젝트
 - [공식 문서](https://reactnative.dev/docs/environment-setup#installing-dependencies)
 
 2. Xcode 및 cocoapods 설치 (for IOS)
+`sudo gem install cocoapods`
 - Target OS에서 iOS 선택 후 진행 
 - [공식 문서](https://reactnative.dev/docs/environment-setup#installing-dependencies)
 
