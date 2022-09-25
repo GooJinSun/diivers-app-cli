@@ -5,5 +5,5 @@ export const useAsyncEffect = (func: Function, dependency: Array<any>) => {
     (async () => {
       await func();
     })();
-  }, dependency);
+  }, [func, dependency]);
 };
