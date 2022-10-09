@@ -10,9 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-native-community/async-storage": "^1.12.1",
-    "expo": "^45.0.0",
-    "expo-web-browser": "^10.2.0",
+    "@react-navigation/native": "^6.0.13",
     "react": "17.0.2",
     "react-native": "0.68.0",
     "react-native-webview": "^11.18.1"

@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { openBrowserAsync } from 'expo-web-browser';
+import { Linking } from 'react-native';
 import { WebViewMessageEvent } from 'react-native-webview';
 import { WebViewProgressEvent } from 'react-native-webview/lib/WebViewTypes';
 import { TokenStorage } from '../tools/tokenStorage';
@@ -27,7 +27,8 @@ const useWebView = () => {
 
     switch (data.actionType) {
       case 'OPEN_BROWSER':
-        openBrowserAsync(data.url);
+        //TODO(Gina): 나중에 가능하다면 openBrowserAsync 사용해보기
+        await Linking.openURL(data.url);
         return;
       case 'SET_TOKEN': {
         console.log('[data.token]', data.token);

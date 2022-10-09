@@ -1,62 +1,65 @@
-import React, { useRef } from 'react';
-import type { Node } from 'react';
+import React, { useCallback } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import AsyncStorage from '@react-native-community/async-storage';
-import { useAsyncEffect } from './src/tools/useAsyncEffect';
-import { WebBrowser } from 'expo-web-browser';
-import useMessage from './src/tools/useMessage';
+import { WEB_VIEW_DEBUGGING_SCRIPT } from './src/constants/webview.constants';
+import useAppStateActiveEffect from './src/hooks/useAppStateActiveEffect';
+import { useAsyncEffect } from './src/hooks/useAsyncEffect';
+import useWebView from './src/hooks/useWebView';
+import { TokenStorage } from './src/tools/tokenStorage';
 
-const App: () => Node = () => {
+// const WEB_VIEW_URL = 'https://adoor.world';
+const WEB_VIEW_URL = 'http://localhost:3000';
+// const WEB_VIEW_URL = 'https://divers.world';
+
+const App = () => {
   const backgroundStyle = {
     backgroundColor: Colors.WebView,
     flex: 1,
   };
-  const { getMessageFromWebview, sendMessageToWebview } = useMessage;
 
-  let webViewRef = useRef(null);
+  const {
+    ref,
+    postMessage,
+    onLoadProgress,
+    onMessage,
+    onShouldStartLoadWithRequest,
+  } = useWebView();
 
-  const handleSetRef = (ref) => {
-    webViewRef = ref;
-  };
+  useAsyncEffect(
+    useCallback(async () => {
+      console.log('[useAsyncEffect]');
+      const token = await TokenStorage.getToken();
+      return postMessage(JSON.stringify(token));
+    }, [postMessage]),
+  );
 
-  const getToken = async () => {
-    const data = await AsyncStorage.getItem('TOKEN');
-    return data !== null ? JSON.parse(data) : null;
-  };
-
-  useAsyncEffect(async () => {
-    // 만약 token이 있으면 webview로 보내주기
-    if (!webViewRef) return;
-    const token = await getToken();
-    if (token) sendMessageToWebview(token, webViewRef);
-  }, [webViewRef]);
+  useAppStateActiveEffect(
+    useCallback(async () => {
+      console.log('[useAppStateActiveEffect]');
+      const token = await TokenStorage.getToken();
+      return postMessage(JSON.stringify(token));
+    }, [postMessage]),
+    [],
+  );
 
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar />
       <WebView
-        onMessage={getMessageFromWebview}
-        injectedJavaScript={debugging}
-        ref={webViewRef}
-        source={{ uri: 'http://localhost:3000' }}
-        // source={{ uri: 'https://adoor.world' }}
-        handleSetRef={handleSetRef}
+        ref={ref}
+        onMessage={onMessage}
+        onLoadProgress={onLoadProgress}
+        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+        source={{ uri: WEB_VIEW_URL }}
+        startInLoadingState
+        javaScriptEnabled
+        injectedJavaScript={WEB_VIEW_DEBUGGING_SCRIPT}
+        originWhitelist={['*']}
+        showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>
   );
 };
 
 export default App;
-
-const debugging = `
-            const consoleLog = (type, log) => window.ReactNativeWebView.postMessage(JSON.stringify({'type': 'Console', 'data': log}));
-            console = {
-                log: (log) => consoleLog('log', log),
-                debug: (log) => consoleLog('debug', log),
-                info: (log) => consoleLog('info', log),
-                warn: (log) => consoleLog('warn', log),
-                error: (log) => consoleLog('error', log),
-              };
-          `;
