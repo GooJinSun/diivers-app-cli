@@ -12,6 +12,8 @@ import { TokenStorage } from './src/tools/tokenStorage';
 const WEB_VIEW_URL = 'http://localhost:3000';
 // const WEB_VIEW_URL = 'https://divers.world';
 
+console.log(123);
+
 const App = () => {
   const backgroundStyle = {
     backgroundColor: Colors.WebView,
