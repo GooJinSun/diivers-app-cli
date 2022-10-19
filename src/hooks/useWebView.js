@@ -10,7 +10,9 @@ const useWebView = () => {
   const ref = useRef(null);
 
   const postMessage = useCallback(
-    (data: any) => ref.current?.postMessage(JSON.stringify(data)),
+    (data: any) => {
+      ref.current?.postMessage(JSON.stringify(data));
+    },
     [ref],
   );
 
@@ -20,9 +22,6 @@ const useWebView = () => {
   const onMessage = useCallback(async (event: WebViewMessageEvent) => {
     const data: WebViewMessage = JSON.parse(event.nativeEvent.data);
     if (!('actionType' in data)) return;
-
-    console.log('[onMessage]', data);
-
     if (data.actionType === 'CONSOLE') console.log(data.data);
 
     switch (data.actionType) {
@@ -31,10 +30,7 @@ const useWebView = () => {
         await Linking.openURL(data.url);
         return;
       case 'SET_TOKEN': {
-        console.log('[data.token]', data.token);
         const { refresh = '', access = '' } = data.token;
-        console.log('[refresh]', refresh);
-
         await TokenStorage.setToken({
           refresh,
           access,

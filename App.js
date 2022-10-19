@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -12,13 +12,12 @@ import { TokenStorage } from './src/tools/tokenStorage';
 const WEB_VIEW_URL = 'http://localhost:3000';
 // const WEB_VIEW_URL = 'https://divers.world';
 
-console.log(123);
-
 const App = () => {
   const backgroundStyle = {
     backgroundColor: Colors.WebView,
     flex: 1,
   };
+  const [key, setKey] = useState(0);
 
   const {
     ref,
@@ -30,17 +29,16 @@ const App = () => {
 
   useAsyncEffect(
     useCallback(async () => {
-      console.log('[useAsyncEffect]');
       const token = await TokenStorage.getToken();
-      return postMessage(JSON.stringify(token));
+      return postMessage(token);
     }, [postMessage]),
   );
 
   useAppStateActiveEffect(
     useCallback(async () => {
-      console.log('[useAppStateActiveEffect]');
       const token = await TokenStorage.getToken();
-      return postMessage(JSON.stringify(token));
+      setKey((k) => k + 1);
+      return postMessage(token);
     }, [postMessage]),
     [],
   );
@@ -50,6 +48,7 @@ const App = () => {
       <StatusBar />
       <WebView
         ref={ref}
+        key={key}
         onMessage={onMessage}
         onLoadProgress={onLoadProgress}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
