@@ -1,13 +1,13 @@
 import { useCallback, useRef, useState } from 'react';
 import { Linking } from 'react-native';
-import { WebViewMessageEvent } from 'react-native-webview';
+import { WebViewMessageEvent, WebView } from 'react-native-webview';
 import { WebViewProgressEvent } from 'react-native-webview/lib/WebViewTypes';
 import { TokenStorage } from '../tools/tokenStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useWebView = () => {
   const [loadProgress, setLoadProgress] = useState(0);
-  const ref = useRef(null);
+  const ref = useRef<WebView>(null);
 
   const postMessage = useCallback(
     (data: any) => {

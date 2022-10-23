@@ -17,6 +17,7 @@ const App = () => {
     backgroundColor: Colors.WebView,
     flex: 1,
   };
+
   const [key, setKey] = useState(0);
 
   const {
@@ -37,8 +38,7 @@ const App = () => {
   useAppStateActiveEffect(
     useCallback(async () => {
       const token = await TokenStorage.getToken();
-      setKey((k) => k + 1);
-      return postMessage(token);
+      postMessage(token);
     }, [postMessage]),
     [],
   );
