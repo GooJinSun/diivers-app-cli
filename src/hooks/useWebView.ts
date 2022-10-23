@@ -20,7 +20,7 @@ const useWebView = () => {
    * 웹뷰에서 오는 요청 처리
    */
   const onMessage = useCallback(async (event: WebViewMessageEvent) => {
-    const data: WebViewMessage = JSON.parse(event.nativeEvent.data);
+    const data = JSON.parse(event.nativeEvent.data);
     if (!('actionType' in data)) return;
     if (data.actionType === 'CONSOLE') console.log(data.data);
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -7,6 +7,7 @@ import useAppStateActiveEffect from './src/hooks/useAppStateActiveEffect';
 import { useAsyncEffect } from './src/hooks/useAsyncEffect';
 import useWebView from './src/hooks/useWebView';
 import { TokenStorage } from './src/tools/tokenStorage';
+import BootSplash from 'react-native-bootsplash';
 
 // const WEB_VIEW_URL = 'https://adoor.world';
 const WEB_VIEW_URL = 'http://localhost:3000';
@@ -17,8 +18,6 @@ const App = () => {
     backgroundColor: Colors.WebView,
     flex: 1,
   };
-
-  const [key, setKey] = useState(0);
 
   const {
     ref,
@@ -38,7 +37,10 @@ const App = () => {
   useAppStateActiveEffect(
     useCallback(async () => {
       const token = await TokenStorage.getToken();
-      postMessage(token);
+      if (token) {
+        await BootSplash.hide({ fade: true });
+        postMessage(token);
+      }
     }, [postMessage]),
     [],
   );
@@ -48,7 +50,6 @@ const App = () => {
       <StatusBar />
       <WebView
         ref={ref}
-        key={key}
         onMessage={onMessage}
         onLoadProgress={onLoadProgress}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
