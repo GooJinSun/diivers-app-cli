@@ -37,6 +37,10 @@ const useWebView = () => {
         });
         return;
       }
+      case 'REMOVE_TOKEN': {
+        await TokenStorage.removeToken();
+        return;
+      }
       case 'SET_ASYNC_STORAGE':
         if (typeof data.value === 'string') {
           await AsyncStorage.setItem(data.key, data.value);
