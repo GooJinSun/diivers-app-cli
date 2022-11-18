@@ -9,12 +9,9 @@ const useWebView = () => {
   const [loadProgress, setLoadProgress] = useState(0);
   const ref = useRef<WebView>(null);
 
-  const postMessage = useCallback(
-    (data: any) => {
-      ref.current?.postMessage(JSON.stringify(data));
-    },
-    [ref],
-  );
+  const postMessage = useCallback((key: string, data: any) => {
+    ref.current?.postMessage(JSON.stringify({ key, data }));
+  }, []);
 
   /**
    * 웹뷰에서 오는 요청 처리

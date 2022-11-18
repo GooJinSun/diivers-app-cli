@@ -9,8 +9,8 @@ import useWebView from './src/hooks/useWebView';
 import { TokenStorage } from './src/tools/tokenStorage';
 import BootSplash from 'react-native-bootsplash';
 
-// const WEB_VIEW_URL = 'https://adoor.world';
-const WEB_VIEW_URL = 'http://localhost:3000';
+const WEB_VIEW_URL = 'https://adoor.world';
+// const WEB_VIEW_URL = 'http://192.168.0.108:3000';
 // const WEB_VIEW_URL = 'https://divers.world';
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
   useAsyncEffect(
     useCallback(async () => {
       const token = await TokenStorage.getToken();
-      return postMessage(token);
+      return postMessage('SET_TOKEN', token);
     }, [postMessage]),
   );
 
@@ -39,7 +39,7 @@ const App = () => {
       const token = await TokenStorage.getToken();
       if (token) {
         await BootSplash.hide({ fade: true });
-        postMessage(token);
+        postMessage('SET_TOKEN', token);
       }
     }, [postMessage]),
     [],
