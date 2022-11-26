@@ -38,20 +38,6 @@ const useWebView = () => {
         await TokenStorage.removeToken();
         return;
       }
-      //NOTE(Gina): 아래는 AsyncStorage 관련 util들이며, 만약 쓰이지 않는다면 지워두기 (22.11.19)
-      case 'SET_ASYNC_STORAGE':
-        if (typeof data.value === 'string') {
-          await AsyncStorage.setItem(data.key, data.value);
-        } else {
-          await AsyncStorage.setItem(data.key, JSON.stringify(data.value));
-        }
-        break;
-      case 'REMOVE_ASYNC_STORAGE':
-        await AsyncStorage.removeItem(data.key);
-        break;
-      case 'CLEAR_ASYNC_STORAGE':
-        await AsyncStorage.clear();
-        break;
       default:
         return;
     }
