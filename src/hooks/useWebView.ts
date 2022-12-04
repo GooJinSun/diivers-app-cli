@@ -3,7 +3,6 @@ import { Linking } from 'react-native';
 import { WebViewMessageEvent, WebView } from 'react-native-webview';
 import { WebViewProgressEvent } from 'react-native-webview/lib/WebViewTypes';
 import { TokenStorage } from '../tools/tokenStorage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useWebView = () => {
   const [loadProgress, setLoadProgress] = useState(0);
