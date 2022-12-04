@@ -9,9 +9,9 @@ import useWebView from './src/hooks/useWebView';
 import { TokenStorage } from './src/tools/tokenStorage';
 import BootSplash from 'react-native-bootsplash';
 
-const WEB_VIEW_URL = 'https://adoor.world';
+// const WEB_VIEW_URL = 'https://adoor.world';
 // const WEB_VIEW_URL = 'http://192.168.0.108:3000';
-// const WEB_VIEW_URL = 'https://divers.world';
+const WEB_VIEW_URL = 'https://divers.world';
 
 const App = () => {
   const backgroundStyle = {
