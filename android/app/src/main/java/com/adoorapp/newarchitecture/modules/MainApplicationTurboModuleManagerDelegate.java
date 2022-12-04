@@ -1,4 +1,4 @@
-package com.adoor.newarchitecture.modules;
+package com.adoorapp.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

@@ -1,4 +1,4 @@
-package com.adoor.newarchitecture;
+package com.adoorapp.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.adoor.BuildConfig;
-import com.adoor.newarchitecture.components.MainComponentsRegistry;
-import com.adoor.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.adoorapp.BuildConfig;
+import com.adoorapp.newarchitecture.components.MainComponentsRegistry;
+import com.adoorapp.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
