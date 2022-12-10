@@ -4,7 +4,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '11.0'
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'adoor' do
+target 'diivers' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -20,7 +20,7 @@ target 'adoor' do
   )
 
 
-  target 'adoorTests' do
+  target 'diiversTests' do
     inherit! :complete
     # Pods for testing
   end
