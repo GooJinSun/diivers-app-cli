@@ -10,10 +10,10 @@ import notifee, {
 import { APP_CONSTS } from '@constants';
 
 export default (() => {
-  const androidChallengeId = Platform.select({
+  const androidChannelId = Platform.select({
     android: notifee.createChannel({
-      id: 'challengers',
-      name: 'challengers',
+      id: 'diivers',
+      name: 'diivers',
       vibration: true,
       visibility: AndroidVisibility.PUBLIC,
       importance: AndroidImportance.HIGH,
@@ -28,7 +28,7 @@ export default (() => {
   > => {
     if (APP_CONSTS.IS_IOS) return undefined;
     return {
-      channelId: await androidChallengeId,
+      channelId: await androidChannelId,
       lightUpScreen: true,
       onlyAlertOnce: true,
       showTimestamp: true,
@@ -74,8 +74,8 @@ export default (() => {
    *
    * ```ts
    *  LocalNotification.immediate({
-   *    title: '테스트 입니당',
-   *    body: '하하하',
+   *    title: 'TEST TITLE',
+   *    body: 'TEST BODY',
    *    data: Route.navigate('CorpTab').onFallback('SignInAndUpScreen'),
    *  });
    * ```
@@ -96,21 +96,9 @@ export default (() => {
     }
   };
 
-  const cancelScheduled = async (id: string) => {
-    console.log('[LocalNotification] cancel id', id);
-    await notifee.cancelTriggerNotification(id);
-  };
-
   const getIsNotificationGranted = async () => {
     const { authorizationStatus } = await notifee.getNotificationSettings();
     return authorizationStatus === 2 || authorizationStatus === 1;
-  };
-
-  const cancelMultipleScheduled = async (ids: string[]) => {
-    if (!Array.isArray(ids) || ids.length === 0) return;
-    console.log('[LocalNotification] cancel ids', ids);
-    await notifee.cancelTriggerNotifications(ids);
-    await notifee.cancelDisplayedNotifications(ids);
   };
 
   const cancelByIds = (ids: string[]) => notifee.cancelAllNotifications(ids);
@@ -162,13 +150,11 @@ export default (() => {
 
   return {
     immediate,
-    cancelScheduled,
     cancelByIds,
     cancelAll,
     initialize,
     requestPermission,
     cancelDisplayedNotification,
-    cancelMultipleScheduled,
     getIsNotificationGranted,
   };
 })();
