@@ -2,12 +2,13 @@ import React, { useCallback } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { WEB_VIEW_DEBUGGING_SCRIPT } from './src/constants/webview.constants';
+import { WEB_VIEW_DEBUGGING_SCRIPT } from './src/constants/webview';
 import useAppStateActiveEffect from './src/hooks/useAppStateActiveEffect';
-import { useAsyncEffect } from './src/hooks/useAsyncEffect';
-import useWebView from './src/hooks/useWebView';
+import { useWebView, useAsyncEffect } from './src/hooks';
 import { TokenStorage } from './src/tools/tokenStorage';
 import BootSplash from 'react-native-bootsplash';
+// import messaging from '@react-native-firebase/messaging';
+import { FirebaseNotification } from '@libs';
 
 // const WEB_VIEW_URL = 'http://192.168.0.108:3000';
 const WEB_VIEW_URL = 'https://diivers.world';
@@ -26,12 +27,20 @@ const App = () => {
     onShouldStartLoadWithRequest,
   } = useWebView();
 
-  useAsyncEffect(
-    useCallback(async () => {
-      const token = await TokenStorage.getToken();
-      return postMessage('SET_TOKEN', token);
-    }, [postMessage]),
-  );
+  // useAsyncEffect(
+  //   useCallback(async () => {
+  //     const token = await TokenStorage.getToken();
+  //     return postMessage('SET_TOKEN', token);
+  //   }, [postMessage]),
+  // );
+
+  useAsyncEffect(async () => {
+    try {
+      FirebaseNotification.initialize();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useAppStateActiveEffect(
     useCallback(async () => {
