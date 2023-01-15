@@ -37,19 +37,7 @@ const App = () => {
   useAsyncEffect(
     useCallback(async () => {
       await FirebaseNotification.initialize();
-    }, []),
-  );
-
-  useAsyncEffect(
-    useCallback(async () => {
       await FirebaseNotification.requestUserPermission();
-    }, []),
-  );
-
-  useAsyncEffect(
-    useCallback(async () => {
-      console.log('checkToken');
-      await FirebaseNotification.checkToken();
     }, []),
   );
 

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* diiversTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* diiversTests.m */; };
-		0701FE3F29737F9000025036 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0701FE3E29737F8F00025036 /* GoogleService-Info.plist */; };
+		0701FE422973D58A00025036 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0701FE412973D58A00025036 /* GoogleService-Info.plist */; };
 		07C9D0EA2905AD7A004AE4FC /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07C9D0E92905AD7A004AE4FC /* BootSplash.storyboard */; };
 		08586E50A6ADFAEAACD6C667 /* libPods-diivers-diiversTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 629CEDAAB76404B3B7A6E9E8 /* libPods-diivers-diiversTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
@@ -32,8 +32,8 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* diiversTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = diiversTests.m; sourceTree = "<group>"; };
 		00E7119E159FA0E4BCA98949 /* libPods-diivers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-diivers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0701FE3E29737F8F00025036 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0701FE402973B77800025036 /* diivers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = diivers.entitlements; sourceTree = "<group>"; };
+		0701FE412973D58A00025036 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07C9D0E92905AD7A004AE4FC /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BootSplash.storyboard; sourceTree = "<group>"; };
 		0CE0659D6C9BC4EF6F91A8A9 /* Pods-diivers-diiversTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-diivers-diiversTests.release.xcconfig"; path = "Target Support Files/Pods-diivers-diiversTests/Pods-diivers-diiversTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* diivers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diivers.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,7 +120,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				0701FE3E29737F8F00025036 /* GoogleService-Info.plist */,
+				0701FE412973D58A00025036 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* diivers */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* diiversTests */,
@@ -250,7 +250,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				07C9D0EA2905AD7A004AE4FC /* BootSplash.storyboard in Resources */,
-				0701FE3F29737F9000025036 /* GoogleService-Info.plist in Resources */,
+				0701FE422973D58A00025036 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

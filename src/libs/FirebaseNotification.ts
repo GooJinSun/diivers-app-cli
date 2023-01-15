@@ -58,6 +58,7 @@ export default (() => {
   const handleOnMessage = async (
     event: FirebaseMessagingTypes.RemoteMessage,
   ) => {
+    //TODO(Gina): 메시지를 누르면 어떻게 할건지 추가 function 추가 (URL 이동 등)
     console.log('[FirebaseNotification] handle on message', event);
 
     const { notification, data } = event;
@@ -83,15 +84,21 @@ export default (() => {
    */
   const getInitialNotification = () => messaging().getInitialNotification();
 
+  /**
+   * requestUserPermission
+   */
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-    if (enabled) {
-      console.log('Authorization status:', authStatus);
-    }
+    console.log(
+      '[FirebaseNotification] requestPermission authStatus is ',
+      authStatus,
+    );
+
+    return { enabled };
   };
 
   return {
