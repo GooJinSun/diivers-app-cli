@@ -3,6 +3,7 @@ import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
 import LocalNotification from './LocalNotification';
+import { Alert, Linking, NativeModules } from 'react-native';
 
 export default (() => {
   let isInitialized = false;
@@ -92,6 +93,27 @@ export default (() => {
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (!enabled) {
+      Alert.alert(
+        '알림 설정',
+        '알림 권한 설정은 휴대폰 설정에서 변경 가능합니다.',
+        [
+          {
+            text: '닫기',
+            style: 'cancel',
+          },
+          {
+            text: '설정으로 이동',
+            onPress: () => {
+              if (APP_CONSTS.IS_ANDROID) Linking.openURL('App-Prefs:root');
+              else NativeModules.OpenExternalURLModule.linkAndroidSettings();
+            },
+            style: 'default',
+          },
+        ],
+      );
+    }
 
     console.log(
       '[FirebaseNotification] requestPermission authStatus is ',
