@@ -7,8 +7,8 @@ import useAppStateActiveEffect from './src/hooks/useAppStateActiveEffect';
 import { useWebView, useAsyncEffect } from './src/hooks';
 import { TokenStorage } from './src/tools/tokenStorage';
 import BootSplash from 'react-native-bootsplash';
-// import messaging from '@react-native-firebase/messaging';
-import { FirebaseNotification } from '@libs';
+import messaging from '@react-native-firebase/messaging';
+import { FirebaseNotification } from './src/libs';
 
 // const WEB_VIEW_URL = 'http://192.168.0.108:3000';
 const WEB_VIEW_URL = 'https://diivers.world';
@@ -27,20 +27,31 @@ const App = () => {
     onShouldStartLoadWithRequest,
   } = useWebView();
 
-  // useAsyncEffect(
-  //   useCallback(async () => {
-  //     const token = await TokenStorage.getToken();
-  //     return postMessage('SET_TOKEN', token);
-  //   }, [postMessage]),
-  // );
+  useAsyncEffect(
+    useCallback(async () => {
+      const token = await TokenStorage.getToken();
+      return postMessage('SET_TOKEN', token);
+    }, [postMessage]),
+  );
 
-  useAsyncEffect(async () => {
-    try {
-      FirebaseNotification.initialize();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  useAsyncEffect(
+    useCallback(async () => {
+      await FirebaseNotification.initialize();
+    }, []),
+  );
+
+  useAsyncEffect(
+    useCallback(async () => {
+      await FirebaseNotification.requestUserPermission();
+    }, []),
+  );
+
+  useAsyncEffect(
+    useCallback(async () => {
+      console.log('checkToken');
+      await FirebaseNotification.checkToken();
+    }, []),
+  );
 
   useAppStateActiveEffect(
     useCallback(async () => {

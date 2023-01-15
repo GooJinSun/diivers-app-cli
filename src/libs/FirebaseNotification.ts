@@ -1,4 +1,4 @@
-import { APP_CONSTS } from '@constants';
+import { APP_CONSTS } from '../constants';
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
@@ -14,6 +14,16 @@ export default (() => {
   const getToken = async () => {
     token = await messaging().getToken();
     return token;
+  };
+
+  /**
+   * checkToken
+   */
+  const checkToken = async () => {
+    const fcmToken = await messaging().getToken();
+    if (fcmToken) {
+      console.log(`[FirebaseNotification] your token is ${fcmToken}`);
+    }
   };
 
   /**
@@ -73,9 +83,22 @@ export default (() => {
    */
   const getInitialNotification = () => messaging().getInitialNotification();
 
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+  };
+
   return {
     initialize,
     getToken,
+    checkToken,
     getInitialNotification,
+    requestUserPermission,
   };
 })();

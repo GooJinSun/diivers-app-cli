@@ -7,7 +7,7 @@ import notifee, {
   Notification,
   NotificationAndroid,
 } from '@notifee/react-native';
-import { APP_CONSTS } from '@constants';
+import { APP_CONSTS } from '../constants';
 
 export default (() => {
   const androidChannelId = Platform.select({
