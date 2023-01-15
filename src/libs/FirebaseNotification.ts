@@ -59,7 +59,6 @@ export default (() => {
   const handleOnMessage = async (
     event: FirebaseMessagingTypes.RemoteMessage,
   ) => {
-    //TODO(Gina): 메시지를 누르면 어떻게 할건지 추가 function 추가 (URL 이동 등)
     console.log('[FirebaseNotification] handle on message', event);
 
     const { notification, data } = event;
@@ -78,6 +77,8 @@ export default (() => {
         data,
       });
     }
+
+    //TODO(Gina): 메시지를 누르면 어떻게 할건지 추가 function 추가 (URL 이동 등)
   };
 
   /**
