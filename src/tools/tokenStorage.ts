@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const TOKEN_STORAGE_KEYS = {
+const TOKEN_STORAGE_KEYS = {
   TOKEN: 'TOKEN',
 };
 

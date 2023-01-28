@@ -1,1 +1,1 @@
-export {};
+export * as DynamicLinkType from './dynamicLink.type';

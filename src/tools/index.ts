@@ -1,3 +1,2 @@
-import * as TOKEN_STORAGE from './tokenStorage';
-
-export { TOKEN_STORAGE };
+export * from './fcmTokenStorage';
+export * from './tokenStorage';

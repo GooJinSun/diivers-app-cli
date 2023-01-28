@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import { Linking } from 'react-native';
 import { WebViewMessageEvent, WebView } from 'react-native-webview';
 import { WebViewProgressEvent } from 'react-native-webview/lib/WebViewTypes';
-import { TokenStorage } from '../tools/tokenStorage';
+import { TokenStorage } from '../tools';
 
 const useWebView = () => {
   const [loadProgress, setLoadProgress] = useState(0);
@@ -18,7 +18,6 @@ const useWebView = () => {
   const onMessage = useCallback(async (event: WebViewMessageEvent) => {
     const data = JSON.parse(event.nativeEvent.data);
     if (!('actionType' in data)) return;
-    if (data.actionType === 'CONSOLE') console.log(data.data);
 
     switch (data.actionType) {
       case 'OPEN_BROWSER':
