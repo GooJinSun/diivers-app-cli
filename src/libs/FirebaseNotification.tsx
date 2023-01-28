@@ -4,6 +4,22 @@ import messaging, {
 } from '@react-native-firebase/messaging';
 import LocalNotification from './LocalNotification';
 import { Alert, Linking, NativeModules } from 'react-native';
+import { useWebView } from '../hooks';
+
+const NavigationHandler = ({
+  event,
+}: {
+  event: {
+    notification: any;
+    data: any;
+  };
+}) => {
+  const { postMessage } = useWebView();
+  const { notification, data } = event;
+  if (!notification) return;
+  if (!data || !data.url) return;
+  postMessage('ROUTE', { url: data.url });
+};
 
 export default (() => {
   let isInitialized = false;
@@ -28,6 +44,14 @@ export default (() => {
   };
 
   /**
+   * navigate
+   * event 정보 안에 담겨있는 정보로 webview 안에서 navigate
+   */
+  const navigate = (event: any) => {
+    return NavigationHandler({ event });
+  };
+
+  /**
    * initialize
    */
   const initialize = async () => {
@@ -40,6 +64,7 @@ export default (() => {
 
     messaging().onNotificationOpenedApp((event: any) => {
       console.log('[FirebaseNotification] onNotificationOpenedApp', event);
+      navigate(event);
     });
 
     messaging().onMessage(handleOnMessage);
@@ -78,7 +103,7 @@ export default (() => {
       });
     }
 
-    //TODO(Gina): 메시지를 누르면 어떻게 할건지 추가 function 추가 (URL 이동 등)
+    navigate(event);
   };
 
   /**
@@ -128,6 +153,7 @@ export default (() => {
     initialize,
     getToken,
     checkToken,
+    navigate,
     getInitialNotification,
     requestUserPermission,
   };

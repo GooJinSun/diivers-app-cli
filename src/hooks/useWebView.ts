@@ -20,6 +20,9 @@ const useWebView = () => {
     if (!('actionType' in data)) return;
 
     switch (data.actionType) {
+      case 'CONSOLE':
+        console.log(data.data);
+        return;
       case 'OPEN_BROWSER':
         //TODO(Gina): 나중에 가능하다면 openBrowserAsync 사용해보기
         await Linking.openURL(data.url);

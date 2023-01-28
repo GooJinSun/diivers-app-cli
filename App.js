@@ -6,11 +6,10 @@ import { WEB_VIEW_DEBUGGING_SCRIPT } from './src/constants/webview';
 import useAppStateActiveEffect from './src/hooks/useAppStateActiveEffect';
 import { useWebView, useAsyncEffect } from './src/hooks';
 import { TokenStorage, FcmTokenStorage } from './src/tools';
-
 import BootSplash from 'react-native-bootsplash';
-import messaging from '@react-native-firebase/messaging';
 import { FirebaseNotification } from './src/libs';
 import { fcmApis } from './src/apis';
+import { useEffect } from 'react';
 
 const WEB_VIEW_URL = 'http://192.168.0.159:3000';
 // const WEB_VIEW_URL = 'https://diivers.world';
@@ -63,7 +62,10 @@ const App = () => {
       await BootSplash.hide({ fade: true });
       const { fcmToken } = await FcmTokenStorage.getToken();
       if (!access && !refresh) {
-        return handleRegisterFCMToken(fcmToken, false);
+        handleRegisterFCMToken(fcmToken, false);
+        return postMessage('ROUTE', {
+          url: '/login',
+        });
       }
       postMessage('SET_TOKEN', {
         access,
