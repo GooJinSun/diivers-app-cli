@@ -9,10 +9,9 @@ import { TokenStorage, FcmTokenStorage } from './src/tools';
 import BootSplash from 'react-native-bootsplash';
 import { FirebaseNotification } from './src/libs';
 import { fcmApis } from './src/apis';
-import { useEffect } from 'react';
 
-const WEB_VIEW_URL = 'http://192.168.0.159:3000';
-// const WEB_VIEW_URL = 'https://diivers.world';
+// const WEB_VIEW_URL = 'http://192.168.0.105:3000';
+const WEB_VIEW_URL = 'https://diivers.world';
 
 const App = () => {
   const backgroundStyle = {
@@ -41,11 +40,15 @@ const App = () => {
       await FirebaseNotification.requestUserPermission();
       //TODO(Gina): 나중에 이 부분 지우기
       await FirebaseNotification.checkToken();
+
+      const fcmToken = await FirebaseNotification.getToken();
+      FcmTokenStorage.setToken({ fcmToken });
     }, []),
   );
 
   const handleRegisterFCMToken = useCallback(async (fcmToken, isActive) => {
     if (!fcmToken) return;
+
     await fcmApis.registerFCMToken({
       type: Platform.OS,
       registration_id: fcmToken,
@@ -58,27 +61,26 @@ const App = () => {
 
   useAppStateActiveEffect(
     useCallback(async () => {
+      ref.current.reload();
       const { access, refresh } = await TokenStorage.getToken();
       await BootSplash.hide({ fade: true });
       const { fcmToken } = await FcmTokenStorage.getToken();
       if (!access && !refresh) {
-        handleRegisterFCMToken(fcmToken, false);
-        return postMessage('ROUTE', {
-          url: '/login',
-        });
+        await handleRegisterFCMToken(fcmToken, false);
+        return;
       }
       postMessage('SET_TOKEN', {
         access,
         refresh,
       });
       await handleRegisterFCMToken(fcmToken, true);
-    }, [postMessage, handleRegisterFCMToken]),
+    }, [ref, postMessage, handleRegisterFCMToken]),
     [],
   );
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle="white-content" />
+      <StatusBar barStyle="light-content" />
       <WebView
         ref={ref}
         onMessage={onMessage}
