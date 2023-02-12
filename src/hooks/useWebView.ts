@@ -27,14 +27,14 @@ const useWebView = () => {
         //TODO(Gina): 나중에 가능하다면 openBrowserAsync 사용해보기
         await Linking.openURL(data.url);
         return;
-      case 'SET_TOKEN': {
+      case 'SET_TOKEN':
         const { refresh = '', access = '' } = data.token;
         await TokenStorage.setToken({
           refresh,
           access,
         });
         return;
-      }
+
       case 'REMOVE_TOKEN': {
         await TokenStorage.removeToken();
         return;

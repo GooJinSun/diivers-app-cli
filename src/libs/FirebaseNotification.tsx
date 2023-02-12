@@ -3,7 +3,7 @@ import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
 import LocalNotification from './LocalNotification';
-import { Alert, Linking, NativeModules } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import { useWebView } from '../hooks';
 
 const NavigationHandler = ({
@@ -133,7 +133,7 @@ export default (() => {
             text: '설정으로 이동',
             onPress: () => {
               if (APP_CONSTS.IS_ANDROID) Linking.openURL('App-Prefs:root');
-              else NativeModules.OpenExternalURLModule.linkAndroidSettings();
+              else Linking.openURL('app-settings:');
             },
             style: 'default',
           },
