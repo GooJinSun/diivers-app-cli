@@ -4,22 +4,22 @@ import messaging, {
 } from '@react-native-firebase/messaging';
 import LocalNotification from './LocalNotification';
 import { Alert, Linking } from 'react-native';
-import { useWebView } from '../hooks';
+// import { useWebView } from '../hooks';
 
-const NavigationHandler = ({
-  event,
-}: {
-  event: {
-    notification: any;
-    data: any;
-  };
-}) => {
-  const { postMessage } = useWebView();
-  const { notification, data } = event;
-  if (!notification) return;
-  if (!data || !data.url) return;
-  postMessage('ROUTE', { url: data.url });
-};
+// const NavigationHandler = ({
+//   event,
+// }: {
+//   event: {
+//     notification: any;
+//     data: any;
+//   };
+// }) => {
+//   const { postMessage } = useWebView();
+//   const { notification, data } = event;
+//   if (!notification) return;
+//   if (!data || !data.url) return;
+//   postMessage('ROUTE', { url: data.url });
+// };
 
 export default (() => {
   let isInitialized = false;
@@ -47,9 +47,9 @@ export default (() => {
    * navigate
    * event 정보 안에 담겨있는 정보로 webview 안에서 navigate
    */
-  const navigate = (event: any) => {
-    return NavigationHandler({ event });
-  };
+  // const navigate = (event: any) => {
+  //   return NavigationHandler({ event });
+  // };
 
   /**
    * initialize
@@ -64,7 +64,7 @@ export default (() => {
 
     messaging().onNotificationOpenedApp((event: any) => {
       console.log('[FirebaseNotification] onNotificationOpenedApp', event);
-      navigate(event);
+      // navigate(event);
     });
 
     messaging().onMessage(handleOnMessage);
@@ -90,20 +90,16 @@ export default (() => {
 
     if (!notification) return;
 
-    /**
-     * IOS: 푸시를 누른 시점에 발생하는 이벤트라 바로 네비게이팅
-     * Android: 푸시가 발생한 시점에 발생하는 이벤트 & 실제 푸시는 보이지 않기 때문에 로컬 노티로 복사하여 보여줌.
-     * 이후 로컬 노티를 누르면 네비게이팅
-     */
-    if (APP_CONSTS.IS_ANDROID) {
-      return LocalNotification.immediate({
-        title: notification.title || '',
-        body: notification.body || '',
-        data,
-      });
-    }
+    const title = notification.title || '';
+    const body = notification.body || '';
 
-    navigate(event);
+    return LocalNotification.immediate({
+      title,
+      body,
+      data,
+    });
+
+    // navigate(event);
   };
 
   /**
@@ -153,7 +149,7 @@ export default (() => {
     initialize,
     getToken,
     checkToken,
-    navigate,
+    // navigate,
     getInitialNotification,
     requestUserPermission,
   };
