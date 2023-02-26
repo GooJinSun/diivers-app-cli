@@ -14,13 +14,11 @@ import BootSplash from 'react-native-bootsplash';
 import { FirebaseNotification } from './src/libs';
 import { fcmApis } from './src/apis';
 
-const WEB_VIEW_URL = 'http://192.168.0.101:3000';
-// const WEB_VIEW_URL = 'https://diivers.world';
+// const WEB_VIEW_URL = 'http://192.168.0.101:3000';
+const WEB_VIEW_URL = 'https://diivers.world';
 
 const App: React.FC = () => {
   const { ref, postMessage, onMessage } = useWebView();
-
-  console.log('APP');
 
   useAsyncEffect(async () => {
     await FirebaseNotification.initialize();
@@ -55,7 +53,7 @@ const App: React.FC = () => {
     console.log(AppState.currentState);
     const state = AppState.currentState;
 
-    if (state === 'active') {
+    if (state === 'active' || state === 'unknown') {
       // 로컬 스토리지에서 토큰 확인
       const token = await TokenStorage.getToken();
       await BootSplash.hide({ fade: true });
