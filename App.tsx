@@ -1,11 +1,5 @@
 import React, { useCallback } from 'react';
-import {
-  AppState,
-  // AppStateStatus,
-  Platform,
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
+import { AppState, Platform, SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { WEB_VIEW_DEBUGGING_SCRIPT } from './src/constants/webview';
 import { useWebView, useAsyncEffect } from './src/hooks';
@@ -65,21 +59,6 @@ const App: React.FC = () => {
       await handleRegisterFCMToken(fcmToken, true);
     }
   }, []);
-
-  // useAppStateEffect(async (state: AppStateStatus) => {
-  //   console.log(47, state);
-  //   if (state === 'active') {
-  //     // 로컬 스토리지에서 토큰 확인
-  //     const token = await TokenStorage.getToken();
-  //     await BootSplash.hide({ fade: true });
-  //     postMessage('SET_TOKEN', token);
-
-  //     // 로컬 스토리지에서 FCM 토큰 확인
-  //     const { fcmToken } = await FcmTokenStorage.getToken();
-  //     console.log(89, fcmToken);
-  //     await handleRegisterFCMToken(fcmToken, true);
-  //   }
-  // }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
