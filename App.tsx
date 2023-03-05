@@ -8,8 +8,8 @@ import BootSplash from 'react-native-bootsplash';
 import { FirebaseNotification } from './src/libs';
 import { fcmApis } from './src/apis';
 
-// const WEB_VIEW_URL = 'http://192.168.0.101:3000';
-const WEB_VIEW_URL = 'https://diivers.world';
+const WEB_VIEW_URL = 'http://192.168.0.101:3000';
+// const WEB_VIEW_URL = 'https://diivers.world';
 
 const App: React.FC = () => {
   const { ref, postMessage, onMessage } = useWebView();
@@ -43,8 +43,6 @@ const App: React.FC = () => {
 
   // 이전이 어느 상태였던 foreground로 돌아왔을때 필요한 동작들
   useAsyncEffect(async () => {
-    console.log(48);
-    console.log(AppState.currentState);
     const state = AppState.currentState;
 
     if (state === 'active' || state === 'unknown') {
@@ -61,8 +59,8 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar backgroundColor="white" barStyle={'dark-content'} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <StatusBar barStyle={'dark-content'} />
       <WebView
         ref={ref}
         onMessage={onMessage}
