@@ -34,7 +34,9 @@ const useWebView = () => {
           access,
         });
         return;
-
+      case 'REDIRECT':
+        console.log('redirect', data);
+        return;
       case 'REMOVE_TOKEN': {
         await TokenStorage.removeToken();
         return;
