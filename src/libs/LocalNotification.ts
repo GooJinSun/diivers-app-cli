@@ -8,12 +8,13 @@ import notifee, {
   NotificationAndroid,
 } from '@notifee/react-native';
 import { APP_CONSTS } from '../constants';
+// import { useWebView } from '@hooks';
 
 export default (() => {
   const androidChannelId = Platform.select({
     android: notifee.createChannel({
-      id: 'diivers',
-      name: 'diivers',
+      id: 'Diivers',
+      name: 'Diivers',
       vibration: true,
       visibility: AndroidVisibility.PUBLIC,
       importance: AndroidImportance.HIGH,
@@ -109,6 +110,10 @@ export default (() => {
     notifee.cancelDisplayedNotification(id);
   };
 
+  const getDisplayedNotifications = () => {
+    return notifee.getDisplayedNotifications();
+  };
+
   /**
    * 알림 권한 요청
    * usePopUp DENIED 상태일 때 팝업을 사용할지 옵션
@@ -132,6 +137,8 @@ export default (() => {
   const initialize = () => {
     if (isInitialized) return;
 
+    // const { postMessage } = useWebView();
+
     notifee.onForegroundEvent((event) => {
       console.log('[LocalNotification] foreground event', event);
       if (event.type === EventType.PRESS) {
@@ -139,6 +146,7 @@ export default (() => {
         const { data } = event.detail.notification;
 
         // TODO: data에 해당하는 페이지로 이동
+        console.log(142);
         console.log(data);
       }
     });
@@ -156,6 +164,7 @@ export default (() => {
     requestPermission,
     cancelDisplayedNotification,
     getIsNotificationGranted,
+    getDisplayedNotifications,
   };
 })();
 

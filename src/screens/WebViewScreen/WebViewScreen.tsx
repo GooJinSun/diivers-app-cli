@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { AppState, Platform, SafeAreaView } from 'react-native';
+import { AppState, Platform, SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { WEBVIEW_CONSTS } from '@constants';
 import { useWebView, useAsyncEffect } from '@hooks';
@@ -7,9 +7,10 @@ import { TokenStorage, FcmTokenStorage } from '@tools';
 import BootSplash from 'react-native-bootsplash';
 import { FirebaseNotification } from '@libs';
 import { fcmApis } from '@apis';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 
-// const WEB_VIEW_URL = 'http://192.168.0.101:3000';
-const WEB_VIEW_URL = 'https://diivers.world';
+const WEB_VIEW_URL = 'http://192.168.0.26:3000';
+// const WEB_VIEW_URL = 'https://diivers.world';
 
 const WebViewScreen: React.FC = () => {
   const { ref, postMessage, onMessage } = useWebView();
@@ -58,7 +59,8 @@ const WebViewScreen: React.FC = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <StatusBar barStyle="dark-content" />
       <WebView
         ref={ref}
         onMessage={onMessage}
@@ -67,9 +69,6 @@ const WebViewScreen: React.FC = () => {
         javaScriptEnabled
         injectedJavaScript={WEBVIEW_CONSTS.WEB_VIEW_DEBUGGING_SCRIPT}
         originWhitelist={['*']}
-        style={{
-          flex: 1,
-        }}
       />
     </SafeAreaView>
   );
