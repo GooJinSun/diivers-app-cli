@@ -8,7 +8,6 @@ import notifee, {
   NotificationAndroid,
 } from '@notifee/react-native';
 import { APP_CONSTS } from '../constants';
-// import { useWebView } from '@hooks';
 
 export default (() => {
   const androidChannelId = Platform.select({
@@ -77,7 +76,7 @@ export default (() => {
    *  LocalNotification.immediate({
    *    title: 'TEST TITLE',
    *    body: 'TEST BODY',
-   *    data: Route.navigate('CorpTab').onFallback('SignInAndUpScreen'),
+   *    data: { url: '/post/123' },
    *  });
    * ```
    */
@@ -124,12 +123,7 @@ export default (() => {
     const { authorizationStatus } = await notifee.requestPermission();
 
     if (usePopUp && authorizationStatus === AuthorizationStatus.DENIED) {
-      // ConfirmationPopUp.show({
-      //   body: '알림 권한이 필요합니다.\n설정에서 알림 권한을 허용해주세요.',
-      //   noText: '취소',
-      //   yesText: '이동',
-      //   onPressYes: () => Linking.openURL('app-settings:'),
-      // });
+      //TODO(지나): 알림 권한 물어보기 추가
       throw new Error('[LocalNotification] requested permission');
     }
   };
@@ -137,17 +131,18 @@ export default (() => {
   const initialize = () => {
     if (isInitialized) return;
 
-    // const { postMessage } = useWebView();
-
     notifee.onForegroundEvent((event) => {
       console.log('[LocalNotification] foreground event', event);
       if (event.type === EventType.PRESS) {
         if (!event.detail.notification) return;
         const { data } = event.detail.notification;
 
-        // TODO: data에 해당하는 페이지로 이동
-        console.log(142);
-        console.log(data);
+        //TODO(Redirect)
+        if (data && data.url) {
+          // RootNavigation.navigate('WebViewScreen', {
+          //   url: WEBVIEW_CONSTS.WEB_VIEW_URL.DEV + data.url,
+          // });
+        }
       }
     });
 

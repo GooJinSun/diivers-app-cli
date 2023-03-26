@@ -1,18 +1,19 @@
 import React, { useCallback } from 'react';
 import { AppState, Platform, SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { WEBVIEW_CONSTS } from '@constants';
-import { useWebView, useAsyncEffect } from '@hooks';
-import { TokenStorage, FcmTokenStorage } from '@tools';
 import BootSplash from 'react-native-bootsplash';
-import { FirebaseNotification } from '@libs';
+import FirebaseNotification from '@libs/FirebaseNotification';
+import useWebView from '@hooks/useWebView';
+import useAsyncEffect from '@hooks/useAsyncEffect';
+import { WEBVIEW_CONSTS } from '@constants';
 import { fcmApis } from '@apis';
-// import { SafeAreaView } from 'react-native-safe-area-context';
+import { TokenStorage, FcmTokenStorage } from '@tools';
 
-const WEB_VIEW_URL = 'http://192.168.0.26:3000';
-// const WEB_VIEW_URL = 'https://diivers.world';
+export type AppScreenProps = {
+  // add props
+};
 
-const WebViewScreen: React.FC = () => {
+const AppScreen: React.FC<AppScreenProps> = () => {
   const { ref, postMessage, onMessage } = useWebView();
 
   useAsyncEffect(async () => {
@@ -64,7 +65,7 @@ const WebViewScreen: React.FC = () => {
       <WebView
         ref={ref}
         onMessage={onMessage}
-        source={{ uri: WEB_VIEW_URL }}
+        source={{ uri: WEBVIEW_CONSTS.WEB_VIEW_URL.PROD }}
         decelerationRate="normal"
         javaScriptEnabled
         injectedJavaScript={WEBVIEW_CONSTS.WEB_VIEW_DEBUGGING_SCRIPT}
@@ -74,4 +75,6 @@ const WebViewScreen: React.FC = () => {
   );
 };
 
-export default WebViewScreen;
+export default {
+  Component: AppScreen,
+};

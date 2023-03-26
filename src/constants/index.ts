@@ -1,4 +1,2 @@
-import * as APP_CONSTS from './app';
-import * as WEBVIEW_CONSTS from './webview';
-
-export { APP_CONSTS, WEBVIEW_CONSTS };
+export * as APP_CONSTS from './app';
+export * as WEBVIEW_CONSTS from './webview';
