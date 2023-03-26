@@ -2,15 +2,9 @@ import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getRoutes } from '../routes';
 import useAsyncEffect from '@hooks/useAsyncEffect';
-import { RouteType } from '@types';
 
 const RootNavigator = () => {
   const [initializing, setInitializing] = useState(true);
-
-  const [initialRoute, setInitialRoute] = useState<RouteType.InitialRoute>({
-    screeName: undefined,
-    screenParams: undefined,
-  });
 
   const { routes } = useMemo(() => getRoutes(), []);
 
@@ -23,10 +17,6 @@ const RootNavigator = () => {
     try {
       // 유저 관련 동작
       // const me = await signIn();
-      setInitialRoute({
-        screeName: 'AppScreen',
-        screenParams: undefined,
-      });
     } catch (error) {
       console.log(error);
     } finally {
@@ -48,13 +38,7 @@ const RootNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {routes.map(({ name, Component }) => (
-        <Stack.Screen
-          key={name}
-          name={name}
-          // options={options}
-          initialParams={initialRoute.screenParams}
-          component={Component}
-        />
+        <Stack.Screen key={name} name={name} component={Component} />
       ))}
     </Stack.Navigator>
   );
