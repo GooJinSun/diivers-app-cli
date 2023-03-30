@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "212831338880",
+    "project_id": "diivers",
+    "storage_bucket": "diivers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212831338880:android:d2c348991e77349d7f8165",
+        "android_client_info": {
+          "package_name": "com.diivers.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212831338880-dbccncof8jb8phjj25pb947t7tnojkpt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGsok1Ul5qOIoFwBSlbDA_ZlMB3Gn1TwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212831338880-dbccncof8jb8phjj25pb947t7tnojkpt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "212831338880-giqq9oipofn7go6jfhq102pb1sdv6k8f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.diivers.app",
+                "app_store_id": "1658717443"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

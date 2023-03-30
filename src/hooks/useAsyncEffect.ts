@@ -1,9 +1,11 @@
 import React from 'react';
 
-export const useAsyncEffect = (func: Function, dependency: Array<any>) => {
+const useAsyncEffect = (func: Function, dependency: Array<any>) => {
   React.useEffect(() => {
     (async () => {
       await func();
     })();
   }, [func, dependency]);
 };
+
+export default useAsyncEffect;
