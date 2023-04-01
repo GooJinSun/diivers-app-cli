@@ -1,8 +1,8 @@
+import { TokenStorage } from '@tools';
 import { useCallback, useRef, useState } from 'react';
 import { Linking } from 'react-native';
 import { WebViewMessageEvent, WebView } from 'react-native-webview';
 import { WebViewProgressEvent } from 'react-native-webview/lib/WebViewTypes';
-import { TokenStorage } from '../tools';
 
 const useWebView = () => {
   const [loadProgress, setLoadProgress] = useState(0);

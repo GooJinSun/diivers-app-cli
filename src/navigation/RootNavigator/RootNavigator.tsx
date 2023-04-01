@@ -1,7 +1,10 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getRoutes } from '../routes';
-import useAsyncEffect from '@hooks/useAsyncEffect';
+import { useAsyncEffect } from '@hooks';
+import { FcmTokenStorage } from '@tools';
+import { FirebaseNotification } from '@libs';
+import BootSplash from 'react-native-bootsplash';
 
 const RootNavigator = () => {
   const [initializing, setInitializing] = useState(true);
@@ -10,28 +13,25 @@ const RootNavigator = () => {
 
   useLayoutEffect(() => {
     // 맨 처음에 해주면 좋은 동작들
-    // initializeFirebaseMessage();
   }, []);
 
   useAsyncEffect(async () => {
     try {
-      // 유저 관련 동작
-      // const me = await signIn();
+      await FirebaseNotification.initialize();
+      await FirebaseNotification.requestUserPermission();
+      // 맨 처음에 FCM 토큰 무조건 로컬 스토리지에 저장
+      const fcmToken = await FirebaseNotification.getToken();
+      await FcmTokenStorage.setToken({
+        fcmToken,
+      });
     } catch (error) {
       console.log(error);
     } finally {
       setInitializing(false);
       // bootsplash 가리기
-      // await BootSplash.hide({ fade: true });
+      await BootSplash.hide({ fade: true });
     }
   }, []);
-
-  useEffect(() => {
-    // MessageNavigate
-    // if (initializing) return;
-    // const subscription = MessageNavigate.subscribe(navigateOnMessage);
-    // return () => subscription.unsubscribe();
-  }, [initializing]);
 
   if (initializing) return <></>;
 

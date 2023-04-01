@@ -1,5 +1,5 @@
+import { TokenStorage } from '@tools';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { TokenStorage } from '../tools/tokenStorage';
 
 // export const API_BASE_URL = 'https://diivers.world/api/';
 export const API_BASE_URL = 'http://localhost:8000/api/';

@@ -15,15 +15,15 @@
     "resolveJsonModule": true,
     "paths": {
       "@constants": ["src/constants/index"],
-      "@hooks/*": ["src/hooks/*"],
+      "@hooks": ["src/hooks/index"],
       "@types": ["src/types/index"],
       "@tools": ["src/tools/index"],
-      "@components/*": ["src/components/*"],
-      "@libs/*": ["src/libs/*"],
+      "@components": ["src/components/index"],
+      "@libs": ["src/libs/index"],
       "@screens": ["src/screens/index"],
       "@apis": ["src/apis/index"],
-      "@utils/*": ["src/utils/*"],
-      "@navigation/*": ["src/navigation/*"]
+      "@utils": ["src/utils/index"],
+      "@navigation": ["src/navigation/index"]
     },
     "plugins": [
       {

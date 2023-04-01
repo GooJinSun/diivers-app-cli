@@ -1,8 +1,8 @@
+import { tsUtils } from '@utils';
 import * as routes from '../screens';
-import { typedObjectKeys } from '@utils/ts';
 
 export const getRoutes = () => {
-  const allRoutes = typedObjectKeys(routes).map((key) => ({
+  const allRoutes = tsUtils.typedObjectKeys(routes).map((key) => ({
     name: key,
     ...routes[key],
   }));
@@ -12,4 +12,4 @@ export const getRoutes = () => {
   };
 };
 
-export const allRouteKeys = typedObjectKeys(routes);
+export const allRouteKeys = tsUtils.typedObjectKeys(routes);
