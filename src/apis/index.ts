@@ -1,3 +1,1 @@
-import * as fcmApis from './fcm.api';
-
-export { fcmApis };
+export * as fcmApis from './fcm.api';

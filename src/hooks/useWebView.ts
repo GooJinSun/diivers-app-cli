@@ -1,8 +1,8 @@
+import { TokenStorage } from '@tools';
 import { useCallback, useRef, useState } from 'react';
 import { Linking } from 'react-native';
 import { WebViewMessageEvent, WebView } from 'react-native-webview';
 import { WebViewProgressEvent } from 'react-native-webview/lib/WebViewTypes';
-import { TokenStorage } from '../tools';
 
 const useWebView = () => {
   const [loadProgress, setLoadProgress] = useState(0);
@@ -21,7 +21,7 @@ const useWebView = () => {
 
     switch (data.actionType) {
       case 'CONSOLE':
-        console.log(data.data);
+        console.log('[WEBVIEW CONSOLE]', data.data);
         return;
       case 'OPEN_BROWSER':
         //TODO(Gina): 나중에 가능하다면 openBrowserAsync 사용해보기
@@ -34,7 +34,9 @@ const useWebView = () => {
           access,
         });
         return;
-
+      case 'REDIRECT':
+        console.log('redirect', data);
+        return;
       case 'REMOVE_TOKEN': {
         await TokenStorage.removeToken();
         return;
