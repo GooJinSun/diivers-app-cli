@@ -1,15 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { WEBVIEW_CONSTS } from '@constants';
-import { useWebView } from '@hooks';
+import { useAsyncEffect, useWebView } from '@hooks';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ScreenRouteParamList } from '@screens';
+import { FirebaseNotification, LocalNotification } from '@libs';
+import { FcmTokenStorage, registerFCMToken } from '@tools';
+import BootSplash from 'react-native-bootsplash';
 
-export type AppScreenProps = {
-  url?: string;
-};
+const AppScreen: React.FC<AppScreenProps> = ({ route }) => {
+  const { url = '/home' } = route.params;
 
-const AppScreen: React.FC<AppScreenProps> = ({ url = '/home' }) => {
   const { ref, onMessage, postMessage } = useWebView();
+
+  useLayoutEffect(() => {
+    FirebaseNotification.initialize();
+    LocalNotification.initialize(ref);
+    FirebaseNotification.requestUserPermission();
+  }, [ref]);
+
+  useAsyncEffect(async () => {
+    try {
+      // 맨 처음에 FCM 토큰 무조건 로컬 스토리지에 저장 후 서버에 전송
+      const fcmToken = await FirebaseNotification.getToken();
+      await FcmTokenStorage.setToken({
+        fcmToken,
+      });
+      await registerFCMToken(fcmToken, true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      await BootSplash.hide({ fade: true });
+    }
+  }, []);
 
   useEffect(() => {
     if (!url) return;
@@ -22,7 +46,7 @@ const AppScreen: React.FC<AppScreenProps> = ({ url = '/home' }) => {
       <WebView
         ref={ref}
         onMessage={onMessage}
-        source={{ uri: WEBVIEW_CONSTS.WEB_VIEW_URL.PROD }}
+        source={{ uri: WEBVIEW_CONSTS.WEB_VIEW_URL.DEV }}
         decelerationRate="normal"
         javaScriptEnabled
         injectedJavaScript={WEBVIEW_CONSTS.WEB_VIEW_DEBUGGING_SCRIPT}
@@ -32,6 +56,12 @@ const AppScreen: React.FC<AppScreenProps> = ({ url = '/home' }) => {
   );
 };
 
-export default {
-  Component: AppScreen,
+type AppScreenProps = NativeStackScreenProps<ScreenRouteParamList, 'AppScreen'>;
+
+export type AppScreenRoute = {
+  AppScreen: {
+    url: string | null;
+  };
 };
+
+export default AppScreen;

@@ -10,6 +10,6 @@ console = {
 `;
 
 export const WEB_VIEW_URL = {
-  DEV: 'http://192.168.0.101:3000',
+  DEV: 'http://172.30.1.47:3000',
   PROD: 'https://diivers.world',
 };

@@ -38,18 +38,8 @@ export default (() => {
       messaging().registerDeviceForRemoteMessages();
     }
 
-    messaging().onNotificationOpenedApp((event: any) => {
-      console.log('[FirebaseNotification] onNotificationOpenedApp', event);
-      // navigate(event);
-    });
-
     messaging().onMessage(handleOnMessage);
-
-    console.log(
-      '[FirebaseNotification] start listening remote notification events 👀',
-    );
-
-    isInitialized = true;
+    messaging().setBackgroundMessageHandler(handleOnMessage);
   };
 
   /**
@@ -90,8 +80,6 @@ export default (() => {
       body: body || '',
       data,
     });
-
-    // navigate(event);
   };
 
   /**

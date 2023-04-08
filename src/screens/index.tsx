@@ -1,6 +1,11 @@
-export { default as AppScreen } from './AppScreen/AppScreen';
-import type { AppScreenProps } from './AppScreen/AppScreen';
+import { RouteType } from '@types';
+import AppScreen, { AppScreenRoute } from './AppScreen/AppScreen';
 
-export type ScreenParamList = {
-  AppScreen: AppScreenProps;
+export const allRoutes: RouteType.RouteObject<ScreenRouteParamList> = {
+  AppScreen: {
+    Component: AppScreen,
+    type: 'CARD',
+  },
 };
+
+export type ScreenRouteParamList = AppScreenRoute;
