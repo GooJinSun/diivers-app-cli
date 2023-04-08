@@ -1,35 +1,20 @@
-import React, { useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { WEBVIEW_CONSTS } from '@constants';
-import { TokenStorage, FcmTokenStorage, registerFCMToken } from '@tools';
-import { useAppStateEffect, useWebView } from '@hooks';
+import { useWebView } from '@hooks';
 
 export type AppScreenProps = {
-  // add props
+  url?: string;
 };
 
-const AppScreen: React.FC<AppScreenProps> = () => {
-  const { ref, postMessage, onMessage } = useWebView();
+const AppScreen: React.FC<AppScreenProps> = ({ url = '/home' }) => {
+  const { ref, onMessage, postMessage } = useWebView();
 
-  useAppStateEffect(
-    useCallback(
-      async (state) => {
-        if (state === 'active' || state === 'unknown') {
-          // 로컬 스토리지에서 토큰 확인
-          const token = await TokenStorage.getToken();
-          postMessage('SET_TOKEN', token);
-
-          // 로컬 스토리지에서 FCM 토큰 확인 -> 있으면 api 등록
-          const { fcmToken } = await FcmTokenStorage.getToken();
-          if (!fcmToken || !token.access || !token.refresh) return;
-          await registerFCMToken(fcmToken, true);
-        }
-      },
-      [postMessage],
-    ),
-    [],
-  );
+  useEffect(() => {
+    if (!url) return;
+    postMessage('REDIRECT', url);
+  }, [postMessage, url]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>

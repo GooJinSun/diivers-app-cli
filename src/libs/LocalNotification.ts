@@ -136,13 +136,8 @@ export default (() => {
       if (event.type === EventType.PRESS) {
         if (!event.detail.notification) return;
         const { data } = event.detail.notification;
-
-        //TODO(Redirect)
-        if (data && data.url) {
-          // RootNavigation.navigate('WebViewScreen', {
-          //   url: WEBVIEW_CONSTS.WEB_VIEW_URL.DEV + data.url,
-          // });
-        }
+        console.log(data);
+        // navigate(event);
       }
     });
 
