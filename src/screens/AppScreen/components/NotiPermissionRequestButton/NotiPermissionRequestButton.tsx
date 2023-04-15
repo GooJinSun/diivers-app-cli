@@ -22,7 +22,7 @@ const NotiPermissionRequestButton: React.FC = () => {
         paddingVertical: 14,
         backgroundColor: '#f12c56',
         bottom: 100,
-        left: 20,
+        alignSelf: 'center',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
