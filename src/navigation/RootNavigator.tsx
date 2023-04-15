@@ -1,13 +1,21 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getRoutes } from './routes';
-import { useAppStateEffect, useWebView } from '@hooks';
+import { useAppStateEffect, useAsyncEffect, useWebView } from '@hooks';
 import { FcmTokenStorage, registerFCMToken, TokenStorage } from '@tools';
+import { FirebaseNotification, LocalNotification } from '@libs';
+import BootSplash from 'react-native-bootsplash';
 
 const RootNavigator = () => {
-  const { postMessage } = useWebView();
+  const { ref, postMessage } = useWebView();
 
   const { routes } = useMemo(() => getRoutes(), []);
+
+  useLayoutEffect(() => {
+    FirebaseNotification.initialize();
+    FirebaseNotification.requestUserPermission();
+    LocalNotification.initialize(ref);
+  }, [ref]);
 
   useAppStateEffect(
     useCallback(
@@ -27,6 +35,21 @@ const RootNavigator = () => {
     ),
     [],
   );
+
+  useAsyncEffect(async () => {
+    try {
+      // 맨 처음에 FCM 토큰 무조건 로컬 스토리지에 저장 후 서버에 전송
+      const fcmToken = await FirebaseNotification.getToken();
+      await FcmTokenStorage.setToken({
+        fcmToken,
+      });
+      await registerFCMToken(fcmToken, true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      await BootSplash.hide({ fade: true });
+    }
+  }, []);
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
