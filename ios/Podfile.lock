@@ -427,7 +427,7 @@ PODS:
     - React-perflogger (= 0.68.0)
   - RNBootSplash (4.3.2):
     - React-Core
-  - RNCAsyncStorage (1.17.12):
+  - RNCAsyncStorage (1.18.1):
     - React-Core
   - RNDeviceInfo (10.3.0):
     - React-Core
@@ -722,7 +722,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 9b1304f48e344c55bb3c36e13bf11461cb4da5d8
   ReactCommon: fab89a13b52f1ac42b59a0e4b4f76f21aea9eebe
   RNBootSplash: 5f346163977573d6b2aeba1b25df9d2245c0d73c
-  RNCAsyncStorage: 09fc8595e6d6f6d5abf16b23a56b257d9c6b7c5b
+  RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
   RNDeviceInfo: 4701f0bf2a06b34654745053db0ce4cb0c53ada7
   RNFBApp: 9295dac8a4e8857918bcff90328b197807ee0dc1
   RNFBMessaging: 1a84a46789e1ee9820d70839683faff890a22411

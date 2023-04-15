@@ -8,6 +8,7 @@ import notifee, {
   NotificationAndroid,
 } from '@notifee/react-native';
 import { APP_CONSTS } from '../constants';
+import WebView from 'react-native-webview';
 
 export default (() => {
   const androidChannelId = Platform.select({
@@ -128,7 +129,14 @@ export default (() => {
     }
   };
 
-  const initialize = () => {
+  /**
+   * navigate
+   */
+  const navigate = (webViewRef: React.RefObject<WebView>, url: string) => {
+    webViewRef.current?.postMessage(JSON.stringify({ key: 'REDIRECT', url }));
+  };
+
+  const initialize = (webViewRef: React.RefObject<WebView>) => {
     if (isInitialized) return;
 
     notifee.onForegroundEvent((event) => {
@@ -136,13 +144,9 @@ export default (() => {
       if (event.type === EventType.PRESS) {
         if (!event.detail.notification) return;
         const { data } = event.detail.notification;
-
-        //TODO(Redirect)
-        if (data && data.url) {
-          // RootNavigation.navigate('WebViewScreen', {
-          //   url: WEBVIEW_CONSTS.WEB_VIEW_URL.DEV + data.url,
-          // });
-        }
+        if (!data) return;
+        const { url } = data;
+        navigate(webViewRef, String(url));
       }
     });
 

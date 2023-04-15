@@ -4,22 +4,6 @@ import messaging, {
 } from '@react-native-firebase/messaging';
 import LocalNotification from './LocalNotification';
 import { Alert, Linking } from 'react-native';
-// import { useWebView } from '../hooks';
-
-// const NavigationHandler = ({
-//   event,
-// }: {
-//   event: {
-//     notification: any;
-//     data: any;
-//   };
-// }) => {
-//   const { postMessage } = useWebView();
-//   const { notification, data } = event;
-//   if (!notification) return;
-//   if (!data || !data.url) return;
-//   postMessage('ROUTE', { url: data.url });
-// };
 
 export default (() => {
   let isInitialized = false;
@@ -44,14 +28,6 @@ export default (() => {
   };
 
   /**
-   * navigate
-   * event 정보 안에 담겨있는 정보로 webview 안에서 navigate
-   */
-  // const navigate = (event: any) => {
-  //   return NavigationHandler({ event });
-  // };
-
-  /**
    * initialize
    */
   const initialize = async () => {
@@ -62,18 +38,8 @@ export default (() => {
       messaging().registerDeviceForRemoteMessages();
     }
 
-    messaging().onNotificationOpenedApp((event: any) => {
-      console.log('[FirebaseNotification] onNotificationOpenedApp', event);
-      // navigate(event);
-    });
-
     messaging().onMessage(handleOnMessage);
-
-    console.log(
-      '[FirebaseNotification] start listening remote notification events 👀',
-    );
-
-    isInitialized = true;
+    messaging().setBackgroundMessageHandler(handleOnMessage);
   };
 
   /**
@@ -96,6 +62,7 @@ export default (() => {
 
     const displayedNotificationList =
       await LocalNotification.getDisplayedNotifications();
+
     if (type === 'cancel') {
       const target = displayedNotificationList.find(
         (dn) => dn.notification.data?.tag === tag,
@@ -113,8 +80,6 @@ export default (() => {
       body: body || '',
       data,
     });
-
-    // navigate(event);
   };
 
   /**
@@ -164,7 +129,6 @@ export default (() => {
     initialize,
     getToken,
     checkToken,
-    // navigate,
     getInitialNotification,
     requestUserPermission,
   };
