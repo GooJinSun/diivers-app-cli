@@ -46,7 +46,7 @@ const AppScreen: React.FC<AppScreenProps> = ({ route }) => {
       <WebView
         ref={ref}
         onMessage={onMessage}
-        source={{ uri: WEBVIEW_CONSTS.WEB_VIEW_URL.DEV }}
+        source={{ uri: WEBVIEW_CONSTS.WEB_VIEW_URL.PROD }}
         decelerationRate="normal"
         javaScriptEnabled
         injectedJavaScript={WEBVIEW_CONSTS.WEB_VIEW_DEBUGGING_SCRIPT}
