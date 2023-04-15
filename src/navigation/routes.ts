@@ -6,9 +6,7 @@ const routes: RouteType.RouteObject<ScreenRouteParamList> = {
 };
 
 export const getRoutes = () => {
-  let _routes: [string, RouteType.RouteInfo][];
-
-  _routes = Object.entries(routes);
+  const _routes: [string, RouteType.RouteInfo][] = Object.entries(routes);
 
   return {
     routes: _routes.reduce(reduceResultRoute(), []),
