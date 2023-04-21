@@ -1,12 +1,7 @@
 import { APP_CONSTS } from '@constants';
 import React from 'react';
-import {
-  Image,
-  Linking,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { Linking, TouchableWithoutFeedback } from 'react-native';
+import * as S from './NotiPermissionRequestButton.styles';
 
 const NotiPermissionRequestButton: React.FC = () => {
   // 설정 화면으로 이동
@@ -16,42 +11,16 @@ const NotiPermissionRequestButton: React.FC = () => {
   };
 
   return (
-    <View
-      style={{
-        paddingHorizontal: 12,
-        paddingVertical: 14,
-        backgroundColor: '#f12c56',
-        bottom: 100,
-        alignSelf: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 25,
-        position: 'absolute',
-      }}
-    >
+    <S.ButtonWrapper>
       <TouchableWithoutFeedback onPress={handlePress}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Image
+        <S.ButtonContent>
+          <S.ButtonIcon
             source={require('../../../../../assets/icons/noti_white.png')}
-            style={{
-              width: 12,
-              height: 12,
-              marginRight: 2,
-            }}
           />
-          <Text style={{ color: 'white', fontSize: 13, textAlign: 'center' }}>
-            알림 권한 허용
-          </Text>
-        </View>
+          <S.ButtonText>알림 권한 허용</S.ButtonText>
+        </S.ButtonContent>
       </TouchableWithoutFeedback>
-    </View>
+    </S.ButtonWrapper>
   );
 };
 
